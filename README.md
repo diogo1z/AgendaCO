@@ -1,1 +1,1 @@
-# AgendaCO Projeto de Agenda para conclusão de curso
+# AgendaCO - Projeto de conclusão de curso
