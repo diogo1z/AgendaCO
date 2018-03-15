@@ -1,0 +1,122 @@
+﻿@model AgendaUI.Models.CadastroPacienteAgendamentoVM
+
+<div id="wrapper" class="container-full" style="min-height:calc(100vh - 150px); margin:0; box-sizing:border-box;">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" style="margin-top: 50px;">
+        <ul class="sidebar-nav">
+            <li>
+                Selecione a clínica
+            </li>
+            <li>
+                Selecione a Data e Horário
+            </li>
+            <li>
+                Usuário
+            </li>
+            <li>
+                Paciente
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    @*@using (Html.BeginForm("CadastroPaciente", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        {*@
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+        <div id="page-content-wrapper">
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <h1>Realize seu cadastro</h1>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(x => x.Nome)
+                    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Nome, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(x => x.Cpf)
+                    @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Cpf, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(x => x.DataNascimento)
+                    @Html.TextBoxFor(x => x.DataNascimento, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.DataNascimento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(x => x.Email)
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(x => x.Telefone)
+                    @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Telefone, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(x => x.Celular)
+                    @Html.TextBoxFor(x => x.Celular, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Celular, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(x => x.Senha)
+                    @Html.TextBoxFor(x => x.Senha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Senha, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(x => x.ConfirmacaoSenha)
+                    @Html.TextBoxFor(x => x.ConfirmacaoSenha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ConfirmacaoSenha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="form-group col-lg-12">
+
+                <button type="submit" class="btn btn-success">Agendar</button>
+
+            </div>
+            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+
+                            <!-- /#page-content-wrapper -->
+    }
+</div>
+
+<!-- /#wrapper -->
+@section Script
+{
+    @Scripts.Render("~/bundles/jqueryvalidate")
+}
+@*<script>
+        function Agendar(idClinica)
+        {
+            window.location.href "@Url.Action("DataClinica")?clinica=" + idClinica;
+        }
+    </script>*@

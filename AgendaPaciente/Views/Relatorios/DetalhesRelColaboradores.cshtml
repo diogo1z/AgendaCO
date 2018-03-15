@@ -1,0 +1,24 @@
+﻿@model AgendaPaciente.Models.ColaboradorViewModel
+
+@{
+    Layout = null;
+    Page.Title = "Detalhes";
+}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Detalhes do produto</h4>
+        </div>
+        <div class="modal-body">
+            <p>@Html.DisplayNameFor(model => model.Matricula) : @Html.DisplayFor(model => model.Matricula)</p>
+            <p>@Html.DisplayNameFor(model => model.Data) : @Html.DisplayFor(model => model.Data)</p>
+            <p>@Html.DisplayNameFor(model => model.Nome) : @Html.DisplayFor(model => model.Nome)</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

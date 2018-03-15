@@ -1,0 +1,53 @@
+﻿@model AgendaPaciente.Models.AcessoViewModel
+
+@{
+    Layout = null;
+}
+<head>
+    <title>MV Corp - Login</title>
+    <link rel="shortcut icon" href="~/img/icone.ico" type="image/x-icon" />
+</head>
+
+@Styles.Render("~/Content/bootstrap")
+@Styles.Render("~/Content/css")
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/sb-admin")
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken();
+
+    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Conecte-se na Extranet MV</h3>
+                    </div>
+                    <div class="panel-body" style="margin:10 10 10 10;">
+                        <form role="form">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <fieldset>
+                                <div class="form-group">
+                                    @*<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>*@
+                                    @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuário", autofocus = true } })
+                                    @Html.ValidationMessageFor(model => model.Usuario, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @*<input class="form-control" placeholder="Password" name="password" type="password" value="">*@
+                                    @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", placeholder = "Senha" } })
+                                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input type="submit" value="Acessar" class="btn btn-lg btn-success btn-block" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

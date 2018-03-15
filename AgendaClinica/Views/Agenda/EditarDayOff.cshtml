@@ -1,0 +1,67 @@
+﻿@model AgendaClinica.Models.DayOffVM
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Editar horário diário</h3>
+    </div>
+    <div>
+        @using (Ajax.BeginForm("EditarDayOff", "Agenda", null, new { @id = "frmDayOff" }))
+        {
+            @Html.HiddenFor(x => x.IdOdontologista)
+            @Html.HiddenFor(x => x.Id)
+            <div class="modal-body">
+                <div class="row ">
+                    <div class="col-lg-12">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        @Html.LabelFor(x => x.Data)
+                        @Html.TextBoxFor(x => x.Data, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button class="btn btn-success" id="btnSalvarDayOff">Salvar</button>
+            </div>
+        }
+    </div>
+
+
+    <script>
+        $(document).ready(function () {            
+            $("#Data").mask('99/99/9999');
+            $("#Data").datepicker({
+                format: 'dd/mm/yyyy',
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                dateFormat: 'dd/mm/yy',
+                nextText: 'Próximo',
+                prevText: 'Anterior'
+            });
+
+            $('#btnSalvarDayOff').on('click', function (evt) {
+                evt.preventDefault();
+
+                $.ajax({
+                    url: '@Url.Action("EditarDayOff","Agenda")',
+                    data: $('#frmDayOff').serialize(),
+                    type: 'POST',
+                    cache: false,
+                    async: false,
+                    success: function (response) {
+                        if (response.Status === -1) {
+                            $('#containerAddAgenda').html(response.View);
+                        }
+                        else {
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>

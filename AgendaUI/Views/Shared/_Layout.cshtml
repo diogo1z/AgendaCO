@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @*<a href="http://br.freepik.com/fotos-gratis/ideia-superior-das-maos-com-lapis-e-caderno-aberto_969372.htm">Projetado pelo Freepik</a>*@
+    @*<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*@
+    <title>@Page.Title</title>
+    @RenderSection("head", required: false)
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    @Styles.Render("~/Content/font-awesome")
+</head>
+<body>
+
+    <header>
+
+        <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+            <div class="container topnav">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <div>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div>
+                        <a class="topnav" href="#" style="text-decoration:none;">
+                            <img src="~/img/logo-32.png" style="margin-right:10px;" />
+                            <span class="logo-inicio"><span class="logo-letra-inicial">A</span>genda</span><span class="logo-final"><span class="logo-letra-inicial">F</span>ácil</span>
+
+                        </a>
+                    </div>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#about">Agendar</a>
+                        </li>
+                        <li>
+                            <a href="#services">Como funciona</a>
+                        </li>
+
+                        <li>
+                            <a href="#clinica">Sou Clínica</a>
+                        </li>
+                        <li>
+                            <a href="#contact">Contato</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+    </header>
+
+
+
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#about">Agendar</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Como funciona</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#clinica">Sou Clínica</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#contact">Contato</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Diogo @DateTime.Now.Year. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery.Unobtrusive.Ajax")
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryCascade")
+
+    <script>
+        $('.carousel').carousel({
+            interval: 5000 //changes the speed
+        })
+        window._UrlApi = "@System.Configuration.ConfigurationManager.AppSettings["URLAPI"].ToString()";
+    </script>
+    @RenderSection("script", required: false)
+</body>
+</html>

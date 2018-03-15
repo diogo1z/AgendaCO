@@ -1,0 +1,97 @@
+﻿@model AgendaClinica.Models.SemanaAgendaVM
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Editar horário semanal</h3>
+</div>
+<div>
+    @using (Ajax.BeginForm("EditarSemana", "Agenda", null, new { @id = "frmSemana" }))
+    {
+        @Html.HiddenFor(x => x.IdOdontologista)
+        @Html.HiddenFor(x => x.Id)
+        <div class="modal-body">
+            <div class="row ">
+                <div class="col-lg-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    @Html.LabelFor(x => x.Domingo)
+                    @Html.CheckBoxFor(x => x.Domingo, new { @class = "form-control", @readonly = "1" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.LabelFor(x => x.Segunda)
+                    @Html.CheckBoxFor(x => x.Segunda, new { @class = "form-control", @readonly = "1" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.LabelFor(x => x.Terca)
+                    @Html.CheckBoxFor(x => x.Terca, new { @class = "form-control", @readonly = "1" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.LabelFor(x => x.Quarta)
+                    @Html.CheckBoxFor(x => x.Quarta, new { @class = "form-control", @readonly = "1" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.LabelFor(x => x.Quinta)
+                    @Html.CheckBoxFor(x => x.Quinta, new { @class = "form-control", @readonly = "1" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.LabelFor(x => x.Sexta)
+                    @Html.CheckBoxFor(x => x.Sexta, new { @class = "form-control", @readonly = "1" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.LabelFor(x => x.Sabado)
+                    @Html.CheckBoxFor(x => x.Sabado, new { @class = "form-control", @readonly = "1" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(x => x.HorarioAtendimentoInicio)
+                    @Html.TextBoxFor(x => x.HorarioAtendimentoInicio, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.HorarioAtendimentoInicio, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(x => x.HorarioAtendimentoTermino)
+                    @Html.TextBoxFor(x => x.HorarioAtendimentoTermino, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.HorarioAtendimentoTermino, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            <button class="btn btn-success" id="btnSalvarSemana">Salvar</button>
+        </div>
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#HorarioAtendimentoInicio").mask('00:00');
+        $("#HorarioAtendimentoTermino").mask('00:00');
+
+        $('#btnSalvarSemana').on('click', function (evt) {
+            evt.preventDefault();
+
+            $.ajax({
+                url: '@Url.Action("EditarSemana","Agenda")',
+                data: $('#frmSemana').serialize(),
+                type: 'POST',
+                cache: false,
+                async: false,
+                success: function (response) {
+                    if (response.Status === -1) {
+                        $('#containerAddAgenda').html(response.View);
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    });
+</script>
+

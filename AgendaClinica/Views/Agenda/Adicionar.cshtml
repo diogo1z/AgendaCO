@@ -1,0 +1,40 @@
+﻿@model AgendaClinica.Models.AgendaVM
+@{
+    var listTempoAtendimento = new List<SelectListItem>()
+    {
+        new SelectListItem { Text = "15 Minutos", Value = "15" },
+        new SelectListItem { Text = "30 Minutos", Value = "30" },
+        new SelectListItem { Text = "60 Minutos", Value = "60" }
+    };
+}
+<div class="row">
+    <div class="col-md-12">
+        @Html.LabelFor(x => x.TempoAtendimento)
+        @Html.DropDownListFor(x => x.TempoAtendimento, listTempoAtendimento, "Selecione", new { @class = "form-control" })
+    </div>
+</div>
+<button type="button" onclick="AdicionarSemanaAgenda();" class="btn btn-md btn-default"><i class="glyphicon glyphicon-search"></i> Adicionar</button>
+<div id="divAgendamentoSemana">
+
+</div>
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function AdicionarSemanaAgenda(idOdonto) {
+            $.ajax(
+            {
+                type: 'GET',
+                url: '@Url.Action("AdicionarSemana","Agenda")',
+                dataType: 'html',
+                cache: false,
+                async: true,
+                success: function (data) {                    
+                    $('#divAgendamentoSemana').data(data);
+                }
+            });
+        }
+    </script>
+}

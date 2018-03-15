@@ -1,0 +1,193 @@
+﻿@model AgendaUI.Models.ListaClinicasVM
+<div id="wrapper" class="container-full" style="min-height:calc(100vh - 150px); margin:0; box-sizing:border-box;">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" style="margin-top: 50px;">
+        <ul class="sidebar-nav">
+            @*<li class="sidebar-brand">
+                Lista
+            </li>*@
+            <li>
+                @*<span class="glyphicon glyphicon-home" />*@
+                @*<span class="glyphicon glyphicon-home" style="font-size:20px;">
+                </span>
+                &nbsp;*@Selecione a clínica
+            </li>
+            <li>
+                Selecione a Data e Horário
+            </li>
+            <li>
+                Usuário
+            </li>
+            <li>
+                Paciente
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="row ">
+            <div class="col-lg-12">
+                <h1>Selecione uma clínica abaixo</h1>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-6">
+                <select class="form-control">
+                    <option>Selecione o Bairro</option>
+                </select>
+            </div>
+        </div>
+        <hr />
+        <div class="row" style="padding-top:0px;">
+            @if (Model != null)
+            {
+                foreach (var clinica in Model.ListaClinicas)
+                {
+                    <div class="col-lg-4 col-sm-6 col-xs-12 well well-sm" style="background-color:white; margin:2px 2px 2px 2px;">
+                        <h1>@clinica.NomeFantasia</h1>
+                        
+                        <p>Endereço: @clinica.Endereco.Logradouro Numero: @clinica.Endereco.NumeroLogradouro</p>
+                        <p>Bairro: @clinica.Endereco.Bairro</p>
+                        <p>Cidade: @clinica.Endereco.Cidade</p>
+                        <p>Estado: @clinica.Endereco.Estado</p>
+                        <button class="btn btn-primary"onclick="agendar('@clinica.Id');" style="min-width:80%;"><h3><span class="glyphicon glyphicon-calendar" style="font-size:25px;"></span> AGENDAR</h3></button>
+                    </div>
+                }
+            }
+        </div>
+        @*<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all"><a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="Prev"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">Julho</span>&nbsp;<span class="ui-datepicker-year">2017</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">DOM</span></th><th scope="col"><span title="Monday">SEG</span></th><th scope="col"><span title="Tuesday">TER</span></th><th scope="col"><span title="Wednesday">QUA</span></th><th scope="col"><span title="Thursday">QUI</span></th><th scope="col"><span title="Friday">SEX</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">SAB</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">1</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">2</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">3</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">4</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">5</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">6</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">7</span></td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">8</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">9</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">10</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">11</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">13</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">15</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">16</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined ui-datepicker-today"><span class="ui-state-default">17</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">18</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">19</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">21</a></td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">22</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">23</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">24</a></td><td class=" undefined ui-datepicker-current-day" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default ui-state-active" href="#">25</a></td><td class=" drc-calendar-period" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">26</a></td><td class=" drc-calendar-period" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">27</a></td><td class=" drc-calendar-period" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">28</a></td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled drc-calendar-period"><span class="ui-state-default">29</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled drc-calendar-period"><span class="ui-state-default">30</span></td><td class=" drc-calendar-period" data-handler="selectDay" data-event="click" data-month="6" data-year="2017"><a class="ui-state-default" href="#">31</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div>*@
+        @*AKI
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>*@
+
+        <!-- AKI -->
+
+    </div>
+    <!-- /#page-content-wrapper -->
+    
+</div>
+<!-- /#wrapper -->
+<script>    
+    function agendar (idClinica){        
+        window.location.href = "@Url.Action("DataClinica")?idClinica=" + idClinica;
+    }
+</script>

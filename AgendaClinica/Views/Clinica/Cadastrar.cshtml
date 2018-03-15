@@ -1,0 +1,149 @@
+﻿@model AgendaClinica.Models.ClinicaVM
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AgendaFácil - Cadastra-se</title>
+    <link rel="shortcut icon" href="~/img/icone.ico" type="image/x-icon" />
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/css")
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/sb-admin")
+    @Scripts.Render("~/bundles/jqueryMask")
+</head>
+<body>
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="row" style="padding-top:15px;">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <p>
+                    <img src="~/img/logo-64.png" style="margin-right:10px;vertical-align:top;" />
+                    <span class="logo-inicio"><span class="logo-letra-inicial">A</span>genda</span><span class="logo-final"><span class="logo-letra-inicial">F</span>ácil</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(x => x.NomeFantasia)
+                @Html.TextBoxFor(x => x.NomeFantasia, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.NomeFantasia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(x => x.RazaoSocial)
+                @Html.TextBoxFor(x => x.RazaoSocial, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.RazaoSocial, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Cnpj)
+                @Html.TextBoxFor(x => x.Cnpj, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Cnpj, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(x => x.CepLogradouro)
+                @Html.TextBoxFor(x => x.CepLogradouro, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CepLogradouro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Logradouro)
+                @Html.TextBoxFor(x => x.Logradouro, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(x => x.Logradouro, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.NumeroLogradouro)
+                @Html.TextBoxFor(x => x.NumeroLogradouro, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.NumeroLogradouro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.ComplementoLogradouro)
+                @Html.TextBoxFor(x => x.ComplementoLogradouro, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.ComplementoLogradouro, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(x => x.Estado)
+                @Html.TextBoxFor(x => x.Estado, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(x => x.Estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Cidade)
+                @Html.TextBoxFor(x => x.Cidade, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(x => x.Cidade, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Bairro)
+                @Html.TextBoxFor(x => x.Bairro, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(x => x.Bairro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Senha)
+                @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", @type = "password" })
+                @Html.ValidationMessageFor(x => x.Senha, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group col-lg-6">
+                @Html.LabelFor(x => x.ConfirmacaoSenha)
+                @Html.TextBoxFor(x => x.ConfirmacaoSenha, new { @class = "form-control", @type = "password" })
+                @Html.ValidationMessageFor(x => x.ConfirmacaoSenha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#Cnpj").mask("99.999.999/9999-99")
+        $("#CepLogradouro").mask('00000-000');
+
+        $("#CepLogradouro").blur(function () {
+            $.ajax({
+                url: '//viacep.com.br/ws/' + $(this).val().replace("-", "") + '/json',
+                success: function (conteudo) {
+                    $("#Cidade").val(conteudo["localidade"]);
+                    $("#Estado").val(conteudo["uf"]);
+                    $("#Bairro").val(conteudo["bairro"]);
+                    $("#Logradouro").val(conteudo["logradouro"]);
+                }
+            });
+        });
+    </script>
+}
+</body>
+
+</html>

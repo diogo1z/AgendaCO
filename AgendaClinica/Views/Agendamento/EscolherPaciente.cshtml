@@ -1,0 +1,133 @@
+﻿@model AgendaClinica.Models.BuscarPacientesVM
+
+@{
+    Page.Title = "AgendaFácil - Agendamentos";
+}
+
+<div class="col-lg-12">
+    <h1 class="page-header">Agendamento - Selecione o paciente</h1>
+</div>
+<br />
+<div class="modal fade" id="modalPaciente" tabindex="-1"
+     role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="containerPaciente"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-md-12">
+        <label>Buscar por Cpf</label>
+        @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control" })
+    </div>
+    <div class="col-md-12">        
+        <button class="btn btn-md btn-success" onclick="BuscarPaciente();"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+    </div>
+</div>
+<hr />
+<div class="row ">
+    <div class="col-lg-12">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+</div>
+@if (Model.Pacientes != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                @*<div class="panel-heading">
+                    </div>*@
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="datatablePaciente">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data Nascimento</th>
+                                <th>E-mail</th>
+                                <th>Celular</th>
+                                <th style="text-align: center;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var paciente in Model.Pacientes)
+                            {
+                                <tr class="odd gradeX">
+                                    <td>@paciente.Nome</td>
+                                    <td>@paciente.DataNascimento.ToShortDateString()</td>
+                                    <td>@paciente.Email</td>
+                                    <td>@paciente.Celular</td>
+                                    <td style="text-align: center;">
+                                        <button class="btn btn-primary details" tooltip="Selecionar" onclick="Selecionar('@paciente.Id');"><i class="glyphicon glyphicon-check"></i> Selecionar</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                    <div class="well">
+                        <p>Caso o paciente não se encontre na lista, realize a busca por Cpf.</p>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryDatatables")
+
+    @Scripts.Render("~/bundles/datablesBootstrap")
+
+    @Scripts.Render("~/bundles/jqueryDatatablesResponsive")
+
+    @Scripts.Render("~/bundles/responsiveBootstrap")
+
+    <script>
+        function Selecionar(id) {
+            window.location.href = "@Url.Action("EscolherOdontologista", "Agendamento")?idPaciente=" + id;
+        };
+        function BuscarPaciente() {
+            var url = "@Url.Action("BuscarPaciente", "Agendamento")?cpf=" + $('#Cpf').val() ;
+            $.get(url, function (data) {
+                $('#containerPaciente').html(data);
+                $('#modalPaciente').modal('show');
+            });
+        };
+
+        $(document).ready(function () {
+
+            $("#Cpf").mask('000.000.000-00');
+
+            $('#datatablePaciente').DataTable({
+                responsive: true,
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                }
+            });
+        });
+    </script>
+}

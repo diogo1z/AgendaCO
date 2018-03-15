@@ -1,0 +1,184 @@
+﻿<!-- Header -->
+<a name="about"></a>
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>Agende a sua consulta</h1>
+                    <h3>É fácil e rápido</h3>
+                    <hr class="intro-divider">
+                    <ul class="list-inline intro-social-buttons">
+                        <li>
+                            <select class="form-control network-name combo-lg" id="slcEstado" name="size">
+                                <option>Carregando...</option>
+
+                            </select>
+                        </li>
+                        <li>
+                            <select class="form-control network-name combo-lg" id="slcCidade" data-cas-param="idEstado" data-cas-parentselect="slcEstado" name="size">
+                                <option>Selecione um Estado</option>
+                            </select>
+                        </li>
+                        <li>
+                            <button id="btnMarcar" type="button" style="vertical-align: inherit !important;" class="btn btn-default btn-lg"><i class="fa fa-check fa-fw"></i><span class="network-name">MARCAR</span></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.intro-header -->
+<!-- Page Content -->
+<a name="services"></a>
+<div class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Além de fácil é rápido!</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <p class="lead">Você não precisa ligar ou sair de casa para encontrar a clínica mais próxima.</p>
+            </div>
+            <div class="col-lg-4">
+                <p class="lead">Você garante um atendimento de qualidade e com responsabilidade em poucos minutos.</p>
+            </div>
+            <div class="col-lg-4">
+                <p class="lead">Tudo isso sem sair de casa e nunca mais se preocupar e ligar para agendar a sua consulta.</p>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+
+<div class="content-section-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Como funciona?</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="numberCircle alinha-centro">1</div>
+                <p class="lead" style="padding-top:25px;">Você seleciona o estado e a cidade de preferência.</p>
+            </div>
+            <div class="col-lg-3">
+                <div class="numberCircle alinha-centro">2</div>
+                <p class="lead" style="padding-top:25px;">Escolhe a data e horário.</p>
+            </div>
+            <div class="col-lg-3">
+                <div class="numberCircle alinha-centro">3</div>
+                <p class="lead" style="padding-top:25px;">Confirma alguns dados.</p>
+            </div>
+            <div class="col-lg-3">
+                <div class="numberCircle alinha-centro">4</div>
+                <p class="lead" style="padding-top:25px;">Pronto sua consulta está agendada.</p>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<a name="clinica"></a>
+<div class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">É Clínica? Comece agora mesmo de graça!</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <p class="lead">Em poucos minutos você pode cadastrar a sua clínica e começar a utilizar um sistema web e integrado para os seus agendamentos.</p>
+            </div>
+            <div class="col-lg-4">
+                <p class="lead">É totalmente grátis e não cobramos taxa de agendamento.</p>
+            </div>
+            <div class="col-lg-4">
+                <p class="lead">Cadastre a sua clínica agora mesmo e apareça para milhares de pessoas que buscam no nosso site.</p>
+            </div>
+        </div>
+        <hr style="border-top:6px solid #dad8d8;" />
+        <div class="row">
+            <div class="col-lg-6 text-right">
+                <p class="lead">Cadastre-se agora</p>
+                <p class="lead"><button class="btn-lg btn-success"><b>Cadastrar</b></button></p>
+            </div>
+            <div class="col-lg-6 text-left">
+                <p class="lead">Já é cadastrado?</p>
+                <p class="lead"><b><a href="">ENTRAR</a></b></p>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.content-section-a -->
+
+<a name="contact"></a>
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Conheça mais sobre nós:</h2>
+            </div>
+            <div class="col-lg-6">
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.banner -->
+
+@section Script
+    {
+    <script>
+
+        var slcEstado = $("#slcEstado");
+
+        slcEstado.append($("<option />").val(0).text("Carregando..."));
+
+        $.getJSON(window._UrlApi + 'Clinica/GetEstados', function (result) {
+            slcEstado.find('option').remove().end();
+            slcEstado.append($("<option />").val(0).text("Selecione"));
+            $.each(result, function () {
+                slcEstado.append($("<option />").val(this.Id).text(this.Nome));
+            });
+        });
+
+        slcEstado.change(function () {
+            $.getJSON(window._UrlApi + 'Clinica/GetCidades?idEstado=' + $("#slcEstado").val(), function (result) {
+                var slcCidade = $("#slcCidade");
+                slcCidade.find('option').remove().end();
+                slcCidade.append($("<option />").val(0).text("Carregando..."));
+                slcCidade.find('option').remove().end();
+                slcCidade.append($("<option />").val(0).text("Selecione"));
+                $.each(result, function () {
+                    slcCidade.append($("<option />").val(this.Id).text(this.Nome));
+                });
+            });
+
+        });
+
+        $("#btnMarcar").click(function () {
+            location.href = '@Url.Action("SelecioneClinica")' + '?idCidade=' + $("#slcCidade").val();
+        });
+    </script>
+}

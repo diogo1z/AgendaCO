@@ -1,0 +1,76 @@
+﻿@model AgendaUI.Models.DataClinicaVM
+
+<div id="wrapper" class="container-full" style="min-height:calc(100vh - 150px); margin:0; box-sizing:border-box;">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" style="margin-top: 50px;">
+        <ul class="sidebar-nav">
+            @*<li class="sidebar-brand">
+                    Lista
+                </li>*@
+            <li>
+                @*<span class="glyphicon glyphicon-home" />*@
+                @*<span class="glyphicon glyphicon-home" style="font-size:20px;">
+                    </span>
+                    &nbsp;*@Selecione a clínica
+            </li>
+            <li>
+                Selecione a Data e Horário
+            </li>
+            <li>
+                Usuário
+            </li>
+            <li>
+                Paciente
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    @using (Html.BeginForm("DataClinica", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        <div id="page-content-wrapper">
+            <div class="row ">
+                <div class="col-lg-12">
+                    <h1>Selecione a data e horário</h1>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <h3>Selecione a Data</h3>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-12">
+                    @Html.EditorFor(x => x.Data, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <h3>Selecione o Horário</h3>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-12">
+                    @Html.EditorFor(x => x.Hora, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <button type="submit">Agendar</button>
+                </div>
+            </div>
+        </div>
+    <!-- /#page-content-wrapper -->
+    }
+</div>
+
+<!-- /#wrapper -->
+<script>
+    function Agendar(idClinica)
+    {
+        window.location.href "@Url.Action("DataClinica")?clinica=" + idClinica;
+    }
+</script>

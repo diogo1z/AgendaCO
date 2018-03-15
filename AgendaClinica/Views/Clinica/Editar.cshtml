@@ -1,0 +1,130 @@
+﻿@model AgendaClinica.Models.ClinicaVM
+@{
+    Page.Title = "AgendaFácil - Odontologista";
+}
+
+<div class="col-lg-12">
+    <h1 class="page-header">Editar Clínica</h1>
+</div>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="row ">
+        <div class="col-lg-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(x => x.NomeFantasia)
+            @Html.TextBoxFor(x => x.NomeFantasia, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.NomeFantasia, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(x => x.RazaoSocial)
+            @Html.TextBoxFor(x => x.RazaoSocial, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(x => x.RazaoSocial, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Cnpj)
+            @Html.TextBoxFor(x => x.Cnpj, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(x => x.Cnpj, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(x => x.CepLogradouro)
+            @Html.TextBoxFor(x => x.CepLogradouro, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.CepLogradouro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Logradouro)
+            @Html.TextBoxFor(x => x.Logradouro, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(x => x.Logradouro, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.NumeroLogradouro)
+            @Html.TextBoxFor(x => x.NumeroLogradouro, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.NumeroLogradouro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.ComplementoLogradouro)
+            @Html.TextBoxFor(x => x.ComplementoLogradouro, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.ComplementoLogradouro, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(x => x.Estado)
+            @Html.TextBoxFor(x => x.Estado, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(x => x.Estado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Cidade)
+            @Html.TextBoxFor(x => x.Cidade, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(x => x.Cidade, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Bairro)
+            @Html.TextBoxFor(x => x.Bairro, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(x => x.Bairro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group col-lg-12">
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </div>
+    <br />
+    <br />
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryDatatables")
+
+    @Scripts.Render("~/bundles/datablesBootstrap")
+
+    @Scripts.Render("~/bundles/jqueryDatatablesResponsive")
+
+    @Scripts.Render("~/bundles/responsiveBootstrap")
+
+    <script>
+        $(document).ready(function () {
+            $("#Cnpj").mask("99.999.999/9999-99")
+            $("#CepLogradouro").mask('00000-000');
+
+            $("#CepLogradouro").blur(function () {
+                $.ajax({
+                    url: '//viacep.com.br/ws/'+ $(this).val().replace("-","") + '/json',
+                    success: function(conteudo) {
+                        $("#Cidade").val(conteudo["localidade"]);
+                        $("#Estado").val(conteudo["uf"]);
+                        $("#Bairro").val(conteudo["bairro"]);
+                        $("#Logradouro").val(conteudo["logradouro"]);
+                    }
+                });
+            });
+
+            });
+
+    </script>
+}

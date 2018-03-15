@@ -1,0 +1,131 @@
+﻿@model AgendaClinica.Models.PacienteVM
+
+@{
+    Page.Title = "AgendaFácil - Paciente";
+}
+<div class="col-lg-12">
+    <h1 class="page-header">Adicionar Paciente</h1>
+</div>
+<br />
+
+@using (Html.BeginForm())
+{
+    <div class="row ">
+        <div class="col-lg-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(x => x.Nome)
+            @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Cpf)
+            @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Cpf, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.DataNascimento)
+            @Html.TextBoxFor(x => x.DataNascimento, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.DataNascimento, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Telefone)
+            @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Telefone, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Celular)
+            @Html.TextBoxFor(x => x.Celular, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Celular, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Dependente.Nome)
+            @Html.TextBoxFor(x => x.Dependente.Nome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Dependente.Nome, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-lg-6">
+            @Html.LabelFor(x => x.Dependente.DataNascimento)
+            @Html.TextBoxFor(x => x.Dependente.DataNascimento, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Dependente.DataNascimento, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="well">
+        Para mais dependentes finalize o cadastro e adicione.
+    </div>
+    <br />
+    <div class="form-group col-lg-12">
+        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
+    </div>
+    <br />
+    <br />
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryDatatables")
+
+    @Scripts.Render("~/bundles/datablesBootstrap")
+
+    @Scripts.Render("~/bundles/jqueryDatatablesResponsive")
+
+    @Scripts.Render("~/bundles/responsiveBootstrap")
+
+    <script>
+        $(document).ready(function () {
+            $("#Cpf").mask('000.000.000-00');
+
+            $("#Cep").mask('00000-000');
+
+            $("#DataNascimento").mask('00/00/0000');
+            $("#Dependente_DataNascimento").mask('00/00/0000');
+
+            $("#Celular").mask('(00) 00000-0000');
+            $("#Telefone").mask('(00) 0000-0000');
+
+            DatepickerOnTextbox = function (obj) {
+                obj.datepicker({
+                    format: 'dd/mm/yyyy',
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    dateFormat: 'dd/mm/yy',
+                    nextText: 'Próximo',
+                    prevText: 'Anterior'
+                });
+
+            };
+            DatepickerOnTextbox($("#DataNascimento"));
+            DatepickerOnTextbox($("#Dependente_DataNascimento"));
+
+            if ($("#DataNascimento").val() === '01/01/0001')
+                $("#DataNascimento").val('');
+
+            if ($("#Dependente_DataNascimento").val() === '01/01/0001')
+                $("#Dependente_DataNascimento").val('');
+
+        });
+
+    </script>
+}

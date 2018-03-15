@@ -1,0 +1,78 @@
+﻿@model AgendaClinica.Models.AcessoViewModel
+
+@{
+    Layout = null;
+}
+<head>
+    <title>AgendaFácil - Login</title>
+    <link rel="shortcut icon" href="~/img/icone.ico" type="image/x-icon" />
+</head>
+
+@Styles.Render("~/Content/bootstrap")
+@Styles.Render("~/Content/css")
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/sb-admin")
+
+
+
+@*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+<div class="container">
+    <div class="row" style="padding-top:15px;">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <p>
+                <img src="~/img/logo-64.png" style="margin-right:10px;vertical-align:top;" />
+                <span class="logo-inicio"><span class="logo-letra-inicial">A</span>genda</span><span class="logo-final"><span class="logo-letra-inicial">F</span>ácil</span>
+            </p>
+            <h2>Faça seu login</h2>
+            <p>Entre com seus dados para acessar todas as informações da sua clínica.</p>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-4 col-md-offset-2" style="border-right:1px solid #d2d2d2;">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="login-panel panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Login</h3>
+                    </div>
+                    <div class="panel-body" style="margin:10 10 10 10;">
+                        <form role="form">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <fieldset>
+                                <div class="form-group">
+                                    @*<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>*@
+                                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuário", autofocus = true } })
+                                    @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @*<input class="form-control" placeholder="Password" name="password" type="password" value="">*@
+                                    @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", placeholder = "Senha" } })
+                                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group text-right">
+                                    <a href="">Esqueceu sua senha?</a>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input type="submit" value="Acessar" class="btn btn-lg btn-success btn-block" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <div class="login-panel text-center">
+                <h3>Aproveite e cadastre a sua clínica agora mesmo e apareça para milhares de pessoas que buscam no nosso site.</h3>
+                <h3>É grátis e simples!</h3>
+                <button class="btn btn-large btn-primary-reverse text-uppercase" onclick='window.location.href("@Url.Action("Cadastrar","Clinica")");'>Cadastre-se</button>
+            </div>
+        </div>
+
+    </div>
+</div>
