@@ -4,13 +4,16 @@
     @*<a href="http://br.freepik.com/fotos-gratis/ideia-superior-das-maos-com-lapis-e-caderno-aberto_969372.htm">Projetado pelo Freepik</a>*@
     @*<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*@
     <title>@Page.Title</title>
-    @RenderSection("head", required: false)
+    @RenderSection("head", required: false)    
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/jquery")
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     @Styles.Render("~/Content/font-awesome")
+    @Styles.Render("~/Content/jqueryUiCSS")
+    
+    @RenderSection("styles", required: false)
 </head>
 <body>
 
@@ -60,8 +63,6 @@
         </nav>
     </header>
 
-
-
     <main>
         @RenderBody()
     </main>
@@ -98,15 +99,15 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery.Unobtrusive.Ajax")
-
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryCascade")
+    @Scripts.Render("~/bundles/jqueryUi")
 
+    
     <script>
         $('.carousel').carousel({
             interval: 5000 //changes the speed
         })
-        window._UrlApi = "@System.Configuration.ConfigurationManager.AppSettings["URLAPI"].ToString()";
+        window._UrlApi = "@System.Configuration.ConfigurationManager.AppSettings["service:ApiAddress"].ToString()";
     </script>
     @RenderSection("script", required: false)
 </body>

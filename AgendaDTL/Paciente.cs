@@ -15,6 +15,7 @@ namespace AgendaDTL
         public string Numero { get; set; }
         public string Complemento { get; set; }
         public string Cep { get; set; }
+        public Usuario Usuario { get; set; }
     }
 
     public class DependentePaciente : Pessoa

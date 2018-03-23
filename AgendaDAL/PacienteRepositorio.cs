@@ -11,7 +11,7 @@ namespace AgendaDAL
     {
         private IConnection _context;
         private IDictionary<string, object> _inners;
-        
+
         public PacienteRepositorio(IConnection c)
         {
             _context = c;
@@ -22,7 +22,9 @@ namespace AgendaDAL
         {
             _inners.Clear();
 
-            _inners.Add("@idClinicaDeCadastro", entity.IdClinicaDeCadastro);
+            if (entity.IdClinicaDeCadastro > 0)
+                _inners.Add("@idClinicaDeCadastro", entity.IdClinicaDeCadastro);
+
             _inners.Add("@nome", entity.Nome);
             _inners.Add("@cpf", entity.Cpf);
             _inners.Add("@dataNascimento", entity.DataNascimento);

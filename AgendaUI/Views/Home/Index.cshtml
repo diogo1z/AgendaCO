@@ -154,7 +154,7 @@
         var slcEstado = $("#slcEstado");
 
         slcEstado.append($("<option />").val(0).text("Carregando..."));
-
+        
         $.getJSON(window._UrlApi + 'Clinica/GetEstados', function (result) {
             slcEstado.find('option').remove().end();
             slcEstado.append($("<option />").val(0).text("Selecione"));

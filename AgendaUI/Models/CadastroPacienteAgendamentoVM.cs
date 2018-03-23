@@ -9,16 +9,23 @@ using System.Web;
 
 namespace AgendaUI.Models
 {
+    public class LoginVM
+    {
+        [Required(ErrorMessage = "Informe o usuário.")]
+        public string Login { get; set; }
+
+        [Required(ErrorMessage = "Informe a senha.")]
+        [DataType(DataType.Password)]
+        public string Senha { get; set; }
+        public Agendamento Agendamento { get; set; }
+    }
+
+
     [Validator(typeof(CadastroPacienteAgendamentoVMValidator))]
     public class CadastroPacienteAgendamentoVM
     {
-        public int IdClinica { get; set; }
+        public Agendamento Agendamento { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DataAgendamento { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
-        public TimeSpan HoraAgendamento { get; set; }
         [DisplayName("Nome:")]
         public string Nome { get; set; }
         [DisplayName("CPF:")]
@@ -83,6 +90,19 @@ namespace AgendaUI.Models
     {
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; }
+    }
+
+    public class Agendamento
+    {
+        public int IdClinica { get; set; }
+        public int IdOdonto { get; set; }
+        public int IdAgenda { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DataAgendamento { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        public TimeSpan HoraAgendamento { get; set; }
     }
 
 }

@@ -220,6 +220,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AcessoViewModel.cs" />
     <Compile Include="Models\CadastroPacienteAgendamentoVM.cs" />
     <Compile Include="Models\DataClinicaVM.cs" />
     <Compile Include="Models\ListaClinicasVM.cs" />
@@ -235,6 +236,7 @@
     <Content Include="Views\Home\DataClinica.cshtml" />
     <Content Include="Views\Home\CadastroPaciente.cshtml" />
     <Content Include="Views\Home\ProtocoloAgendamento.cshtml" />
+    <Content Include="Views\Home\Entrar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

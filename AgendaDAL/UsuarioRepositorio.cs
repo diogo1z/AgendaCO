@@ -28,13 +28,21 @@ namespace AgendaDAL
             if (entity.idClinica > 0)
             {
                 _inners.Add("@idClinica", entity.idClinica);
+
                 if (entity.Perfil != null)
                     _inners.Add("@idPerfil", entity.Perfil.Id);
 
                 return _context.Save("s_CriarUsuarioClinica", _inners);
             }
             else if (entity.idPaciente > 0)
-                throw new NotImplementedException();
+            {
+                _inners.Add("@idPaciente", entity.idClinica);
+
+                if (entity.Perfil != null)
+                    _inners.Add("@idPerfil", entity.Perfil.Id);
+
+                return _context.Save("s_CriarUsuarioPaciente", _inners);
+            }
             else
                 throw new NotImplementedException();
         }

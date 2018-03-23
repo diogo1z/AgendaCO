@@ -1,5 +1,7 @@
 ﻿@model AgendaUI.Models.DataClinicaVM
-
+@{ 
+    ViewBag.Title = "Seleciona a data e horário";
+}
 <div id="wrapper" class="container-full" style="min-height:calc(100vh - 150px); margin:0; box-sizing:border-box;">
     <!-- Sidebar -->
     <div id="sidebar-wrapper" style="margin-top: 50px;">
@@ -26,51 +28,163 @@
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
-    @using (Html.BeginForm("DataClinica", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-    {
-        <div id="page-content-wrapper">
-            <div class="row ">
-                <div class="col-lg-12">
-                    <h1>Selecione a data e horário</h1>
-                </div>
-            </div>
 
-            <div class="row ">
-                <div class="col-lg-12">
-                    <h3>Selecione a Data</h3>
-                </div>
+    <div id="page-content-wrapper">
+        <div class="row">
+            <div class="col-lg-6 form-group">
+                <h4>Selecione o odontologista</h4>
+                <select class="form-control combo-lg" id="slcOdonto">
+                    <option>Carregando...</option>
+                </select>
             </div>
-            <div class="row ">
-                <div class="col-lg-12">
-                    @Html.EditorFor(x => x.Data, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="row ">
-                <div class="col-lg-12">
-                    <h3>Selecione o Horário</h3>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-lg-12">
-                    @Html.EditorFor(x => x.Hora, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="row ">
-                <div class="col-lg-12">
-                    <button type="submit">Agendar</button>
+            <div class="col-lg-6 form-group">
+                <h4>Selecione a data para visualizar os agendamentos</h4>
+                <div id="calendario">
                 </div>
             </div>
         </div>
+        <div class="row">
+            <table width="100%" class="table table-striped table-bordered table-hover" id="datatableHorarios">
+                <thead>
+                    <tr>
+                        <th>Horário</th>
+                        <th style="text-align: center;"></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
     <!-- /#page-content-wrapper -->
-    }
 </div>
 
 <!-- /#wrapper -->
+
 <script>
-    function Agendar(idClinica)
+    function NovoAgendamento() {
+        window.location.href = "@Url.Action("EscolherPaciente", "Agendamento")";
+    };
+
+    var enableDays = [];
+
+    function enableAllTheseDays(date) {
+        var sdate = $.datepicker.formatDate('yy-mm-dd', date)
+        if ($.inArray(sdate, enableDays) != -1) {
+            return [true];
+        }
+        return [false];
+    };
+
+
+    Date.prototype.yyyymmdd = function () {
+        var yyyy = this.getFullYear().toString();
+        var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
+        var dd = this.getDate().toString();
+        return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]); // padding
+    };
+
+    function CarregarCalendario()
     {
-        window.location.href "@Url.Action("DataClinica")?clinica=" + idClinica;
+        $.getJSON(window._UrlApi + "Agendamento/DiasDisponiveis?meses=3&idOdontologista=" + $('#slcOdonto option:selected').val() + "&idClinica=" + @ViewBag.IdClinica, function (data) {
+            enableDays = [];
+            $.each(data, function (key, val) {
+                enableDays.push((new Date(val)).yyyymmdd());
+            });
+        }).done(function () {
+            $("#calendario").datepicker("refresh");
+            $("#calendario").datepicker({
+                format: 'dd/mm/yyyy',
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                dateFormat: 'yy-mm-dd',
+                minDate: "0d",
+                maxDate : "+3m",
+                nextText: 'Próximo',
+                prevText: 'Anterior',
+                beforeShowDay: enableAllTheseDays
+            });
+            $("#calendario").datepicker()
+                .on("change", function (e) {
+                    CarregarHorario($(this).val());
+                });
+
+        });
     }
+
+    function CarregarHorario(date)
+    {
+        $.getJSON(window._UrlApi + "Agendamento?data=" + date + "&idOdontologista=" + $('#slcOdonto option:selected').val() + "&idClinica=" + @ViewBag.IdClinica, function (data) {
+            var table = $("#datatableHorarios tbody");
+            var dataTable = "";
+            $.each(data, function (i, item) {
+                if (item.IdPaciente === 0) {
+                    dataTable += '<tr class="odd gradeX">';
+                    dataTable += '<td>' + item.Horario + '</td>';
+                    dataTable += "<td>" +
+                        "<button class='btn btn-primary details' onclick=\"Agendar(" +
+                        + item.IdAgenda + ",'" + item.Horario +
+                        "');\"><i class='glyphicon glyphicon-check'></i> Agendar</button>" +
+                        "</td>";
+                    dataTable += '</tr>';
+                }
+            });
+            table.html(dataTable);
+        }).done(function () {
+
+        });
+    }
+
+
+    function Agendar(idAgenda, horario)
+    {
+        $.ajax({
+            url: '@Url.Action("DataClinica")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                'IdAgenda': idAgenda,
+                'IdClinica': @ViewBag.IdClinica,
+                'IdOdonto': $('#slcOdonto').val(),
+                'DataAgendamento': $('#calendario').val(),
+                'HoraAgendamento': horario
+            }),
+            traditional: true,
+            success: function (returndata) {
+                if (returndata.ok)
+                {
+                    window.location = returndata.Url;
+                }
+                else
+                    window.alert(returndata.message);
+
+            }
+        });
+    }
+
+
+
+    $(document).ready(function () {
+        var slcOdonto = $("#slcOdonto");
+
+
+        slcOdonto.append($("<option />").val(0).text("Carregando..."));
+
+        $.getJSON(window._UrlApi + 'Odontologista?idClinica='+ @ViewBag.IdClinica, function (result) {
+            slcOdonto.find('option').remove().end();
+            slcOdonto.append($("<option />").val(0).text("Selecione"));
+            $.each(result, function () {                
+                slcOdonto.append($("<option />").val(this.Id).text(this.Nome));
+            });
+        });
+
+        //CarregarCalendario();
+
+        slcOdonto.change(function () {
+            CarregarCalendario();
+        });
+    });
+
 </script>

@@ -20,8 +20,6 @@
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
-    @*@using (Html.BeginForm("CadastroPaciente", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-        {*@
     @using (Html.BeginForm())
     {
 
@@ -112,7 +110,32 @@
 <!-- /#wrapper -->
 @section Script
 {
+
+
     @Scripts.Render("~/bundles/jqueryvalidate")
+    
+    @Scripts.Render("~/bundles/jqueryMask")
+    <script>
+        $("#Cpf").mask('000.000.000-00');
+
+        $("#DataNascimento").mask('00/00/0000');
+
+        $("#Celular").mask('(00) 00000-0000');
+        $("#Telefone").mask('(00) 0000-0000');
+
+        $("#DataNascimento").datepicker({
+            format: 'dd/mm/yyyy',
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            dateFormat: 'yy-mm-dd',            
+            maxDate : "0d",
+            nextText: 'Próximo',
+            prevText: 'Anterior'
+        });
+    </script>
 }
 @*<script>
         function Agendar(idClinica)

@@ -38,7 +38,14 @@ namespace AgendaUI.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-            
+
+            bundles.Add(new StyleBundle("~/Content/jqueryUiCSS", "https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryUi", "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryMask", "https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"));
+
+
             BundleTable.EnableOptimizations = true;
             bundles.UseCdn = true;
         }

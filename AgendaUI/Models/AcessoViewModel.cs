@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgendaClinica.Models
+namespace AgendaUI.Models
 {
     public class AcessoViewModel
     {
@@ -10,6 +10,6 @@ namespace AgendaClinica.Models
         [Required(ErrorMessage = "Informe a senha.")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
-        public string Perfil { get; set; }        
+        public string Perfil { get; set; }
     }
 }
