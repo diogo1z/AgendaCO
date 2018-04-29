@@ -40,8 +40,10 @@ namespace AgendaUI.Models
         [DisplayName("Celular:")]
         public string Celular { get; set; }
         [DisplayName("Senha:")]
+        [DataType(DataType.Password)]
         public string Senha { get; set; }
         [DisplayName("Confirme sua senha:")]
+        [DataType(DataType.Password)]
         public string ConfirmacaoSenha { get; set; }
 
         public List<Dependente> Dependentes { get; set; }

@@ -36,7 +36,7 @@ namespace AgendaDAL
             }
             else if (entity.idPaciente > 0)
             {
-                _inners.Add("@idPaciente", entity.idClinica);
+                _inners.Add("@idPaciente", entity.idPaciente);
 
                 if (entity.Perfil != null)
                     _inners.Add("@idPerfil", entity.Perfil.Id);

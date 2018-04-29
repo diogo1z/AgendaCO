@@ -16,16 +16,25 @@ namespace AgendaUI.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
+            if (Request.Cookies["agendamento"] != null)
+                Request.Cookies.Remove("agendamento");
+
             return View();
         }
 
         public ActionResult Calendario()
         {
+            if (Request.Cookies["agendamento"] != null)
+                Request.Cookies.Remove("agendamento");
+
             return View();
         }
 
         public ActionResult SelecioneClinica(int idCidade)
         {
+            if (Request.Cookies["agendamento"] != null)
+                Request.Cookies.Remove("agendamento");
+
             var client = new HttpClient();
             client.BaseAddress = new Uri(ConfigurationManager.AppSettings["service:ApiAddress"].ToString());
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -65,7 +74,7 @@ namespace AgendaUI.Controllers
             if (ModelState.IsValid)
             {
                 var cookie = new HttpCookie("agendamento", JsonConvert.SerializeObject(agendamento));
-                cookie.Expires.AddDays(1);
+                cookie.Expires.AddHours(1);
                 HttpContext.Response.Cookies.Add(cookie);
                 return Json(new { ok = true, Url = Url.Action("Entrar") });
             }
@@ -79,6 +88,55 @@ namespace AgendaUI.Controllers
                 return View();
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Entrar(AcessoViewModel model)
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(ConfigurationManager.AppSettings["service:ApiAddress"].ToString());
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            var response = client.GetAsync("Usuario?login=" + model.Login +
+                        "&senha=" + AgendaUtils.Criptografia.RetornarMD5(model.Senha) +
+                        "&tipoAcesso=3").Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("", "Usuário ou senha inválidos.");
+                return View(model);
+            }
+
+            var acesso = JsonConvert.DeserializeObject<AgendaDTL.Usuario>(response.Content.ReadAsStringAsync().Result);
+
+            var agendamento = JsonConvert.DeserializeObject<Models.Agendamento>(Request.Cookies["agendamento"].Value);
+            //string idPaciente = response.Content.ReadAsStringAsync().Result;
+
+            response = client.PostAsync("Agendamento",
+               new FormUrlEncodedContent(new[]
+               {
+                        new KeyValuePair<string, string>("IdAgenda", agendamento.IdAgenda.ToString()),
+                        new KeyValuePair<string, string>("IdPaciente", acesso.idPaciente.ToString()),
+                        new KeyValuePair<string, string>("Data", agendamento.DataAgendamento.ToString("yyyy-MM-dd")),
+                        new KeyValuePair<string, string>("Horario", agendamento.HoraAgendamento.ToString())
+               })).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(string.Empty, response.Content.ReadAsStringAsync().Result);
+                return View(model);
+            }
+
+            var tempModel = new ProtocoloVM()
+            {
+                Clinica = "Clinicão",
+                Nome = model.Login == null ? "teste nome" : model.Login,
+                DataAgendamento = agendamento.DataAgendamento < new DateTime(1000, 1, 1) ? DateTime.Now : agendamento.DataAgendamento,
+                HoraAgendamento = agendamento.HoraAgendamento == null ? TimeSpan.MaxValue : agendamento.HoraAgendamento,
+                Protocolo = 123
+            };
+            TempData["protocolo"] = tempModel;
+            return RedirectToAction("ProtocoloAgendamento", "Home");
         }
 
         [HttpGet]
@@ -118,6 +176,7 @@ namespace AgendaUI.Controllers
                 }
 
                 var agendamento = JsonConvert.DeserializeObject<Models.Agendamento>(Request.Cookies["agendamento"].Value);
+                //string idPaciente = response.Content.ReadAsStringAsync().Result;
 
                 response = client.PostAsync("Agendamento",
                    new FormUrlEncodedContent(new[]
@@ -125,7 +184,7 @@ namespace AgendaUI.Controllers
                         new KeyValuePair<string, string>("IdAgenda", agendamento.IdAgenda.ToString()),
                         new KeyValuePair<string, string>("IdPaciente", response.Content.ReadAsStringAsync().Result),
                         new KeyValuePair<string, string>("Data", agendamento.DataAgendamento.ToString("yyyy-MM-dd")),
-                        new KeyValuePair<string, string>("Horario", agendamento.HoraAgendamento.ToString("hh:mm"))
+                        new KeyValuePair<string, string>("Horario", agendamento.HoraAgendamento.ToString())
                    })).Result;
 
                 if (!response.IsSuccessStatusCode)
@@ -137,11 +196,11 @@ namespace AgendaUI.Controllers
                 var tempModel = new ProtocoloVM()
                 {
                     Clinica = "Clinicão",
-                    Nome = model.Nome == null ? "teste nome" : model.Nome,
                     DataAgendamento = agendamento.DataAgendamento < new DateTime(1000, 1, 1) ? DateTime.Now : agendamento.DataAgendamento,
                     HoraAgendamento = agendamento.HoraAgendamento == null ? TimeSpan.MaxValue : agendamento.HoraAgendamento,
                     Protocolo = 123
                 };
+
                 TempData["protocolo"] = tempModel;
                 return RedirectToAction("ProtocoloAgendamento", "Home");
             }

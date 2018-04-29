@@ -32,7 +32,7 @@
 
     <div id="page-content-wrapper">
         <div class="col-md-4 col-md-offset-1" style="border-right:1px solid #d2d2d2;">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            @using (Html.BeginForm("Entrar", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
             {
                 @Html.AntiForgeryToken();
                 <div class="login-panel panel panel-default">
