@@ -118,7 +118,7 @@ namespace AgendaClinica.Controllers
                         return View(new AcessoViewModel());
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     ModelState.AddModelError(string.Empty, "Não foi possível validar o usuário, tente novamente.");
                     return View(usuario);

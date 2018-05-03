@@ -81,7 +81,7 @@
 
         function CarregarCalendario()
         {
-            $.getJSON("http://localhost/ApiAgenda/api/Agendamento/DiasDisponiveis?meses=3&idOdontologista=" + $('#ddlOdonto option:selected').val() + "&idClinica=" + @ViewBag.IdClinica, function (data) {
+            $.getJSON("http://www.api.agendasmart.com.br/api/Agendamento/DiasDisponiveis?meses=3&idOdontologista=" + $('#ddlOdonto option:selected').val() + "&idClinica=" + @ViewBag.IdClinica, function (data) {
                 enableDays = [];
                 $.each(data, function (key, val) {
                     enableDays.push((new Date(val)).yyyymmdd());
@@ -112,7 +112,7 @@
 
         function CarregarHorario(date)
         {
-            $.getJSON("http://localhost/ApiAgenda/api/Agendamento?data=" + date + "&idOdontologista=" + $('#ddlOdonto option:selected').val() + "&idClinica=" + + @ViewBag.IdClinica, function (data) {
+            $.getJSON("http://www.api.agendasmart.com.br/api/Agendamento?data=" + date + "&idOdontologista=" + $('#ddlOdonto option:selected').val() + "&idClinica=" + + @ViewBag.IdClinica, function (data) {
                 var table = $("#datatableHorarios tbody");
                 var dataTable = "";
                 $.each(data, function (i, item) {

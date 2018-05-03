@@ -32,6 +32,7 @@ namespace AgendaClinica.Models
         [Display(Name = "CRO UF:")]
         public int CroEstado { get; set; }
         [Display(Name = "Data de Nascimento:")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
         [Display(Name = "E-mail:")]

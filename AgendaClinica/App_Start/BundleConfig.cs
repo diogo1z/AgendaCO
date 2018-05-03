@@ -57,6 +57,9 @@ namespace AgendaClinica.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/JqueryValidateUnob", "https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"));
 
+            //bundles.Add(new ScriptBundle("~/bundles/globalize", "https://cdnjs.cloudflare.com/ajax/libs/globalize/1.3.0/globalize.min.js"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/JqueryValidate", "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"));
 
             BundleTable.EnableOptimizations = true;
             bundles.UseCdn = true;

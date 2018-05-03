@@ -54,7 +54,7 @@
         function CarregarHorario(date) {
             var url = "";
             if ($('#ddlOdonto option:selected').val() != '') {
-                url = "http://localhost/ApiAgenda/api/Agendamento?data=" + date + "&idOdontologista=" + $('#ddlOdonto option:selected').val() + "&idClinica=" + @ViewBag.IdClinica;
+                url = "http://www.api.agendasmart.com.br/api/Agendamento?data=" + date + "&idOdontologista=" + $('#ddlOdonto option:selected').val() + "&idClinica=" + @ViewBag.IdClinica;
                 $.getJSON(url, function (data) {
                     var div = $("#divTabelaAgendamentos");
                     div.html('');
@@ -76,7 +76,7 @@
                 });
             }
             else {
-                url = "http://localhost/ApiAgenda/api/Agendamento/Todos?data=" + date + "&idClinica=" + @ViewBag.IdClinica;
+                url = "http://www.api.agendasmart.com.br/api/Agendamento/Todos?data=" + date + "&idClinica=" + @ViewBag.IdClinica;
                 $.getJSON(url, function (data) {
                     var div = $("#divTabelaAgendamentos");
                     div.html('');

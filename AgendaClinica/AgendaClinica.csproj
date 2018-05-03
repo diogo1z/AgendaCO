@@ -236,6 +236,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\MyAsp.pubxml" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <Content Include="img\icone.ico" />
     <Content Include="img\logo-16.png" />

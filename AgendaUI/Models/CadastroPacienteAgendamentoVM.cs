@@ -32,6 +32,8 @@ namespace AgendaUI.Models
         public string Cpf { get; set; }
         [DisplayName("Data de nascimento:")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
         public DateTime DataNascimento { get; set; }
         [DisplayName("Email:")]
         public string Email { get; set; }

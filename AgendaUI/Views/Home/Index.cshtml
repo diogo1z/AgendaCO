@@ -112,11 +112,11 @@
         <div class="row">
             <div class="col-lg-6 text-right">
                 <p class="lead">Cadastre-se agora</p>
-                <p class="lead"><button class="btn-lg btn-success"><b>Cadastrar</b></button></p>
+                <p class="lead"><button class="btn-lg btn-success" onclick="window.location.assign('@System.Configuration.ConfigurationManager.AppSettings["external:ClinicaSignInAdress"].ToString()');"><b>Cadastrar</b></button></p>
             </div>
             <div class="col-lg-6 text-left">
                 <p class="lead">Já é cadastrado?</p>
-                <p class="lead"><b><a href="">ENTRAR</a></b></p>
+                <p class="lead"><b><a href="@System.Configuration.ConfigurationManager.AppSettings["external:ClinicaLoginAdress"].ToString()">ENTRAR</a></b></p>
             </div>
         </div>
     </div>
